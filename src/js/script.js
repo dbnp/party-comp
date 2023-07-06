@@ -82,10 +82,22 @@ RadarChart.prototype.drawLabel = function (l, angle, ctx) {
   ctx.save();
   ctx.translate(center.x, center.y);
   ctx.rotate(angle);
+
+  // Adjust rotation and text direction for specific attribute labels
+  if (l === "Social" || l === "Versatility" || l === "Survivability") {
+    ctx.rotate(Math.PI); // Flip upside down
+  }
+  
   ctx.translate(20 * Math.floor(this.max / 2), 0);
   ctx.rotate(Math.PI / 2);
   ctx.fillStyle = "rgba(255, 255, 255, 1.0)";
   ctx.font = this.fontSize + "px monospace";
+
+  if (l === "Sleuthing") {
+    // Set text direction to right-to-left (RTL) for "Sleuthing"
+    ctx.direction = "rtl";
+  }
+
   ctx.fillText(l, -Math.floor(l.length / 2) * (this.fontSize / 2), 0);
   ctx.restore();
 }
@@ -140,44 +152,3 @@ function draw() {
 }
 
 draw();
-
-// Create a separate <div> element for the attribute titles and descriptions
-var attributeDescriptions = document.createElement("div");
-attributeDescriptions.id = "attribute-descriptions";
-document.body.appendChild(attributeDescriptions);
-
-RadarChart.prototype.drawLabel = function (l, angle, ctx) {
-  ctx.save();
-  ctx.translate(center.x, center.y);
-  ctx.rotate(angle);
-  ctx.translate(20 * Math.floor(this.max / 2), 0);
-  ctx.rotate(-Math.PI / 2); // Rotate back to the original orientation
-  ctx.fillStyle = "rgba(255, 255, 255, 1.0)";
-  ctx.font = this.fontSize + "px monospace";
-  ctx.fillText(l, -Math.floor(l.length / 2) * (this.fontSize / 2), 0);
-
-  // Retrieve the description for the attribute
-  var meanings = {
-    "Stealth": "This aspect represents the party's ability to avoid detection, move silently, and perform covert actions without being noticed. It takes into account the skills and abilities related to stealth, such as stealth checks, sneaking, and disguises.",
-    "Combat": "This aspect measures the party's overall strength in combat situations. It considers factors like the combat abilities of individual characters, their attack power, defensive capabilities, and strategic coordination in battle.",
-    "Magic": "This aspect reflects the party's proficiency in spellcasting or magical abilities. It takes into account the spellcasting classes or characters in the party, their magical aptitude, and the variety and potency of spells they can utilize.",
-    "Support": "This aspect assesses the party's ability to provide assistance and support to its members. It includes healing abilities, buffs, crowd control, and other support-oriented skills that can enhance the overall effectiveness of the party.",
-    "Sleuthing": "This aspect measures the party's expertise in gathering information, investigating mysteries, and solving puzzles. It considers skills like perception, investigation, insight, and knowledge-based abilities that contribute to problem-solving and uncovering hidden details.",
-    "Social": "This aspect represents the party's interpersonal skills, charisma, and ability to navigate social encounters. It encompasses abilities such as persuasion, deception, intimidation, and other skills related to interacting with non-player characters and negotiating with others.",
-    "Versatility": "This aspect gauges the party's adaptability and flexibility in various situations. It considers the range of skills, abilities, and classes within the party that allow them to handle a broad spectrum of challenges, both in and out of combat.",
-    "Survivability": "This aspect assesses the party's ability to endure in harsh environments, withstand physical challenges, and maintain resources. It takes into account skills like survival, endurance, foraging, and resource management."
-  };
-  
-  var meaning = meanings[l];
-  if (meaning) {
-    // Append the title and description as bullet points to the separate <div> element
-    var title = document.createElement("strong");
-    title.textContent = l;
-    var description = document.createElement("p");
-    description.textContent = meaning;
-    attributeDescriptions.appendChild(title);
-    attributeDescriptions.appendChild(description);
-  }
-
-  ctx.restore();
-};
