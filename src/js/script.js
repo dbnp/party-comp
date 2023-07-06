@@ -91,11 +91,6 @@ RadarChart.prototype.drawLabel = function (l, angle, ctx) {
   ctx.translate(20 * Math.floor(this.max / 2), 0);
   ctx.rotate(Math.PI / 2);
 
-  // Adjust the translation for specific attribute labels
-  if (l === "Combat" || l === "Magic" || l === "Support") {
-    ctx.translate(0, -this.fontSize); // Move "Combat", "Magic", and "Support" up
-  }
-
   ctx.fillStyle = "rgba(255, 255, 255, 1.0)";
   ctx.font = this.fontSize + "px monospace";
   ctx.fillText(l, -Math.floor(l.length / 2) * (this.fontSize / 2), 0);
