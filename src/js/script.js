@@ -94,7 +94,14 @@ RadarChart.prototype.drawLabel = function (l, angle, ctx) {
   ctx.save();
   ctx.translate(center.x, center.y);
   ctx.rotate(angle);
-  ctx.translate(20 * Math.floor(this.max / 2), 0); 
+
+  // Adjust the translation offset for "support," "combat," and "magic" attributes
+  var translationOffset = 20 * Math.floor(this.max / 2);
+  if (l === "Support" || l === "Combat" || l === "Magic") {
+    translationOffset -= 10; // Adjust the offset as needed
+  }
+
+  ctx.translate(translationOffset, 0);
 
   // Adjust the rotation only for "support," "combat," and "magic" attributes
   if (l === "Support" || l === "Combat" || l === "Magic") {
