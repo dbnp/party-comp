@@ -36,7 +36,7 @@ nGon.prototype.draw = function () {
   ctx.stroke();
   ctx.fill();
   ctx.restore();
-};
+}
 
 function distance(a, b) {
   return Math.sqrt(((a.x - b.x) * (a.x - b.x)) + ((a.y - b.y) * (a.y - b.y)));
@@ -113,7 +113,7 @@ RadarChart.prototype.drawLabel = function (l, angle, ctx) {
 
   ctx.fillText(l, -Math.floor(l.length / 2) * (this.fontSize / 2), 0);
   ctx.restore();
-};
+}
 
 RadarChart.prototype.drawPolygon = function (ctx) {
   ctx.save();
