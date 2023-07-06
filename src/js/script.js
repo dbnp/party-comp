@@ -80,29 +80,27 @@ RadarChart.prototype.update = function () {
 
 RadarChart.prototype.drawLabel = function (l, angle, ctx) {
   ctx.save();
+  ctx.translate(center.x, center.y);
+  ctx.rotate(angle);
 
-  var textWidth = ctx.measureText(l).width;
-  var radius = 20 * Math.floor(this.max / 2);
-  var x = center.x + radius * Math.cos(angle);
-  var y = center.y + radius * Math.sin(angle);
+  // Adjust the rotation for specific attribute labels
+  if (l === "Combat" || l === "Magic" || l === "Support") {
+    ctx.rotate(Math.PI); // Rotate by 180 degrees
+  }
 
-  ctx.translate(x, y);
+  ctx.translate(20 * Math.floor(this.max / 2), 0);
+  ctx.rotate(Math.PI / 2);
 
-  if (l === "Support" || l === "Combat" || l === "Magic") {
-    ctx.rotate(angle + Math.PI); // Rotate by angle + 180 degrees
-    ctx.translate(-textWidth, -this.fontSize); // Move "Support", "Combat", and "Magic" up and left
-  } else {
-    ctx.translate(-textWidth / 2, 0); // Center the text for other attributes
+  // Adjust the translation for specific attribute labels
+  if (l === "Combat" || l === "Magic" || l === "Support") {
+    ctx.translate(0, -this.fontSize); // Move "Combat", "Magic", and "Support" up
   }
 
   ctx.fillStyle = "rgba(255, 255, 255, 1.0)";
   ctx.font = this.fontSize + "px monospace";
-
-  ctx.fillText(l, 0, 0);
-
+  ctx.fillText(l, -Math.floor(l.length / 2) * (this.fontSize / 2), 0);
   ctx.restore();
 };
-
 
 RadarChart.prototype.drawPolygon = function (ctx) {
   ctx.save();
