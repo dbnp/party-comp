@@ -50,7 +50,7 @@ function RadarChart(list, max){
   this.vals = {};
   this.shadowVals = {};
   this.max = max;
-  this.fontSize = 14;
+  this.fontSize = 18;
   var me = this;
   list.map(b=> { me.shadowVals[b] = 3 + Math.floor(15 * Math.random()); me.vals[b] = 0;});
   this.ngons = [];
