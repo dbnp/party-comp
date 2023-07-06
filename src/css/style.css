@@ -3,6 +3,9 @@ body, html {
   height: 100%;
   margin: 0;
   padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #main {
@@ -12,13 +15,15 @@ body, html {
 }
 
 #exportContainer {
-  background-color: #333; /* Use the same background color as #main */
+  display: flex;
+  justify-content: center;
+  background-color: #333;
   padding: 10px;
 }
 
 #exportButton {
   background-color: #ffffff;
-  color: #000000;
+  color: #262a2b;
   border: none;
   padding: 5px 10px;
   font-size: 16px;
