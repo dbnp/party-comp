@@ -210,9 +210,45 @@ function drawTooltips() {
     // Draw description (you can fill in the descriptions here)
     ctx.fillStyle = "#FFF";
     ctx.fillText(descriptions[attribute], x, y + 14);
+
+    // Add event listeners for tooltips
+    canvas.addEventListener("mouseover", function(event) {
+      if (event.clientX >= x - ctx.measureText(attribute).width / 2 && event.clientX <= x + ctx.measureText(attribute).width / 2 &&
+          event.clientY >= y - 8 - RC.fontSize && event.clientY <= y - 8) {
+        showTooltip(attribute, descriptions[attribute], x, y - 8);
+      }
+    });
+
+    canvas.addEventListener("mouseout", function() {
+      hideTooltip();
+    });
   });
 
+  function showTooltip(title, description, x, y) {
+    // Display tooltip based on the title and description
+    // You can use HTML and CSS to style the tooltip and position it properly
+    // For example, you can create a <div> element and position it at (x, y)
+    // Set the innerHTML of the div to display the title and description
+
+    // Example:
+    const tooltip = document.createElement("div");
+    tooltip.style.position = "absolute";
+    tooltip.style.left = x + "px";
+    tooltip.style.top = y + "px";
+    tooltip.innerHTML = `<strong>${title}</strong><br>${description}`;
+    document.body.appendChild(tooltip);
+  }
+
+  function hideTooltip() {
+    // Hide the tooltip
+    // You can remove the <div> element or hide it using CSS
+    // For example, if you appended the tooltip element to the body, you can remove it like this:
+    const tooltip = document.querySelector("#tooltip");
+    if (tooltip) {
+      tooltip.remove();
+    }
+  }
   ctx.restore();
-}
+} 
 
 draw();
