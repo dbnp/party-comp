@@ -11,6 +11,9 @@
       height: 100%;
       margin: 0;
       padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     #main {
@@ -55,25 +58,27 @@
     // Add the exportImage function and event listener here...
 
     function exportImage() {
-      // Create a temporary canvas element to hold the exported image
-      var exportCanvas = document.createElement("canvas");
-      exportCanvas.width = canvas.width;
-      exportCanvas.height = canvas.height;
-      var exportCtx = exportCanvas.getContext("2d");
+  // Create a temporary canvas element to hold the exported image
+  var exportCanvas = document.createElement("canvas");
+  exportCanvas.width = canvas.width;
+  exportCanvas.height = canvas.height;
+  var exportCtx = exportCanvas.getContext("2d");
 
-      // Draw the chart on the temporary canvas
-      RC.update();
-      RC.draw(exportCtx);
+  // Draw the background chart on the temporary canvas
+  RC.ngons[0].draw(exportCtx);
 
-      // Convert the temporary canvas content to a data URL
-      var dataURL = exportCanvas.toDataURL("image/png");
+  // Draw the overlaying graph zone on the temporary canvas
+  RC.draw(exportCtx);
 
-      // Create a download link for the user to save the image
-      var link = document.createElement("a");
-      link.href = dataURL;
-      link.download = "radar_chart.png"; // Specify the desired filename
-      link.click();
-    }
+  // Convert the temporary canvas content to a data URL
+  var dataURL = exportCanvas.toDataURL("image/png");
+
+  // Create a download link for the user to save the image
+  var link = document.createElement("a");
+  link.href = dataURL;
+  link.download = "radar_chart.png"; // Specify the desired filename
+  link.click();
+}
 
     document.querySelector("#exportButton").addEventListener("click", exportImage);
 
