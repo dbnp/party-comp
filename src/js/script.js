@@ -170,4 +170,49 @@ function draw() {
   requestAnimationFrame(draw);
 }
 
+function drawTooltips() {
+  ctx.save();
+  ctx.fillStyle = "rgba(255, 255, 255, 1.0)";
+  ctx.font = "14px px monospace";
+  ctx.textAlign = "left";
+
+  const descriptions = {
+    "Stealth": "This aspect represents the party's ability to avoid detection, move silently, and perform covert actions without being noticed. It takes into account the skills and abilities related to stealth, such as stealth checks, sneaking, and disguises.",
+    "Combat": "This aspect measures the party's overall strength in combat situations. It considers factors like the combat abilities of individual characters, their attack power, defensive capabilities, and strategic coordination in battle.",
+    "Magic": "This aspect reflects the party's proficiency in spellcasting or magical abilities. It takes into account the spellcasting classes or characters in the party, their magical aptitude, and the variety and potency of spells they can utilize.",
+    "Support": "This aspect assesses the party's ability to provide assistance and support to its members. It includes healing abilities, buffs, crowd control, and other support-oriented skills that can enhance the overall effectiveness of the party.",
+    "Sleuthing": "This aspect measures the party's expertise in gathering information, investigating mysteries, and solving puzzles. It considers skills like perception, investigation, insight, and knowledge-based abilities that contribute to problem-solving and uncovering hidden details.",
+    "Social": "This aspect represents the party's interpersonal skills, charisma, and ability to navigate social encounters. It encompasses abilities such as persuasion, deception, intimidation, and other skills related to interacting with non-player characters and negotiating with others.",
+    "Versatility": "This aspect gauges the party's adaptability and flexibility in various situations. It considers the range of skills, abilities, and classes within the party that allow them to handle a broad spectrum of challenges, both in and out of combat.",
+    "Survivability": "This aspect assesses the party's ability to endure in harsh environments, withstand physical challenges, and maintain resources. It takes into account skills like survival, endurance, foraging, and resource management."
+  };
+  
+  RC.list.forEach((attribute, index) => {
+    const angle = (index / RC.list.length) * 2 * Math.PI;
+    const radius = RC.max * 10 + 20;
+
+    const x = center.x + radius * Math.cos(angle);
+    const y = center.y + radius * Math.sin(angle);
+
+    const tooltipWidth = 100;
+    const tooltipHeight = 40;
+    const tooltipX = x - tooltipWidth / 2;
+    const tooltipY = y - tooltipHeight / 2;
+
+    // Draw tooltip rectangle
+    ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
+    ctx.fillRect(tooltipX, tooltipY, tooltipWidth, tooltipHeight);
+
+    // Draw attribute title
+    ctx.fillStyle = "#FFF";
+    ctx.fillText(attribute, x, y - 8);
+
+    // Draw description (you can fill in the descriptions here)
+    ctx.fillStyle = "#FFF";
+    ctx.fillText(descriptions[attribute], x, y + 14);
+  });
+
+  ctx.restore();
+}
+
 draw();

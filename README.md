@@ -1,2 +1,3 @@
-# party-comp
- Radar Chart/Spider Graph style to display party composition
+# Party Comp Tool (PCT)
+
+ Radar Chart/Spider Graph style to display party compositions
