@@ -16,6 +16,13 @@
       justify-content: center;
     }
 
+    .button-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+
     #main {
       background: #333;
       width: 100%;
@@ -40,49 +47,64 @@
 <body>
   <canvas id="main"></canvas>
 
-  <div id="exportContainer">
+  <div class="button-container">
     <button id="exportButton">Export Image</button>
+    <button id="copyButton">Copy to Clipboard</button>
   </div>
 
   <script src='https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.js'></script>
   <script src="./src/js/script.js"></script>
   <script>
+    // Add event listener to the copy button
+    document.querySelector("#copyButton").addEventListener("click", copyImageToClipboard);
+
+    // Function to copy the image to the clipboard
+    function copyImageToClipboard() {
+      // Create a temporary canvas element to hold the exported image
+      var exportCanvas = document.createElement("canvas");
+      exportCanvas.width = canvas.width;
+      exportCanvas.height = canvas.height;
+      var exportCtx = exportCanvas.getContext("2d");
+
+      // Draw the background chart on the temporary canvas
+      RC.ngons[0].draw(exportCtx);
+
+      // Draw the overlaying graph zone on the temporary canvas
+      RC.draw(exportCtx);
+
+      // Convert the temporary canvas content to a data URL
+      var dataURL = exportCanvas.toDataURL("image/png");
+
+      // Create a new image element and set the source to the data URL
+      var img = new Image();
+      img.src = dataURL;
+
+      // Create a temporary container element to hold the image
+      var container = document.createElement("div");
+      container.appendChild(img);
+      document.body.appendChild(container);
+
+      // Copy the image to the clipboard using the Clipboard API
+      navigator.clipboard.write([new ClipboardItem({ "image/png": exportCanvas })])
+        .then(() => {
+          console.log("Image copied to clipboard");
+          document.body.removeChild(container); // Remove the temporary container
+        })
+        .catch((error) => {
+          console.error("Failed to copy image to clipboard", error);
+          document.body.removeChild(container); // Remove the temporary container
+        });
+    }
+
+    // The rest of your JavaScript code goes here...
+
     var canvas = document.querySelector("#main");
     var ctx = canvas.getContext("2d");
 
     canvas.width = document.body.clientWidth;
     canvas.height = document.body.clientHeight;
 
-    // The rest of your JavaScript code goes here...
-
-    // Add the exportImage function and event listener here...
-
-    function exportImage() {
-  // Create a temporary canvas element to hold the exported image
-  var exportCanvas = document.createElement("canvas");
-  exportCanvas.width = canvas.width;
-  exportCanvas.height = canvas.height;
-  var exportCtx = exportCanvas.getContext("2d");
-
-  // Draw the background chart on the temporary canvas
-  RC.ngons[0].draw(exportCtx);
-
-  // Draw the overlaying graph zone on the temporary canvas
-  RC.draw(exportCtx);
-
-  // Convert the temporary canvas content to a data URL
-  var dataURL = exportCanvas.toDataURL("image/png");
-
-  // Create a download link for the user to save the image
-  var link = document.createElement("a");
-  link.href = dataURL;
-  link.download = "radar_chart.png"; // Specify the desired filename
-  link.click();
-}
-
-    document.querySelector("#exportButton").addEventListener("click", exportImage);
-
-    // The rest of your JavaScript code continues...
+    // Rest of your JavaScript code continues...
   </script>
 </body>
 </html>

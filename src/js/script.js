@@ -166,6 +166,7 @@ function draw() {
   
   // Add event listener for the export button
   document.querySelector("#exportButton").addEventListener("click", exportImage);
+  document.querySelector("#copyButton").addEventListener("click", copyImageToClipboard);
 }
 
 draw();
