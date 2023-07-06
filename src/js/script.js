@@ -38,6 +38,23 @@ nGon.prototype.draw = function () {
   ctx.restore();
 }
 
+nGon.prototype.drawBackground = function () {
+  ctx.save();
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = "rgba(128, 128, 128, 1.0)";
+  ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
+  ctx.beginPath();
+  this.vertices.map(function (p) {
+    ctx.lineTo(p.x, p.y);
+    ctx.lineTo(this.center.x, this.center.y);
+    ctx.moveTo(p.x, p.y);
+  });
+  ctx.lineTo(this.vertices[0].x, this.vertices[0].y);
+  ctx.lineTo(this.center.x, this.center.y);
+  ctx.stroke();
+  ctx.restore();
+}
+
 function distance(a, b) {
   return Math.sqrt(((a.x - b.x) * (a.x - b.x)) + ((a.y - b.y) * (a.y - b.y)));
 }
