@@ -89,17 +89,15 @@ RadarChart.prototype.drawLabel = function (l, angle, ctx) {
   }
 
   ctx.translate(20 * Math.floor(this.max / 2), 0);
-  ctx.rotate(-Math.PI / 2); // Rotate back to the original orientation
 
-  // Adjust text position for specific attributes
-  if (l === "Survivability") {
-    ctx.translate(0, -this.fontSize); // Move "Survivability" up
-  } else if (l === "Versatility") {
-    ctx.translate(0, -this.fontSize * 2); // Move "Versatility" up
-  } else if (l === "Social") {
-    ctx.translate(0, -this.fontSize * 3); // Move "Social" up
+  // Adjust the translation for specific attribute labels
+  if (l === "Social" || l === "Versatility") {
+    ctx.translate(0, -this.fontSize); // Move "Social" and "Versatility" up
+  } else if (l === "Survivability") {
+    ctx.translate(0, -2 * this.fontSize); // Move "Survivability" up
   }
 
+  ctx.rotate(-Math.PI / 2); // Rotate back to the original orientation
   ctx.fillStyle = "rgba(255, 255, 255, 1.0)";
   ctx.font = this.fontSize + "px monospace";
 
