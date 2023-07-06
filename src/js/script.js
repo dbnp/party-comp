@@ -78,39 +78,14 @@ RadarChart.prototype.update = function () {
   this.calculatePoints();
 }
 
-// RadarChart.prototype.drawLabel = function (l, angle, ctx) {
-//   ctx.save();
-//   ctx.translate(center.x, center.y);
-//   ctx.rotate(angle);
-//   ctx.translate(20 * Math.floor(this.max / 2), 0);
-//   ctx.rotate(Math.PI / 2);
-//   ctx.fillStyle = "rgba(255, 255, 255, 1.0)";
-//   ctx.font = this.fontSize + "px monospace";
-//   ctx.fillText(l, -Math.floor(l.length / 2) * (this.fontSize / 2), 0);
-//   ctx.restore();
-// }
-
 RadarChart.prototype.drawLabel = function (l, angle, ctx) {
   ctx.save();
   ctx.translate(center.x, center.y);
   ctx.rotate(angle);
-
-  // Adjust the rotation for specific attribute labels
-  if (l === "Combat" || l === "Magic" || l === "Support") {
-    ctx.rotate(Math.PI); // Rotate by 180 degrees
-  }
-
   ctx.translate(20 * Math.floor(this.max / 2), 0);
   ctx.rotate(Math.PI / 2);
-
   ctx.fillStyle = "rgba(255, 255, 255, 1.0)";
   ctx.font = this.fontSize + "px monospace";
-
-  // Adjust the translation for specific attribute labels
-  if (l === "Combat" || l === "Magic" || l === "Support") {
-    ctx.scale(1, -1); // Flip the text vertically
-  }
-
   ctx.fillText(l, -Math.floor(l.length / 2) * (this.fontSize / 2), 0);
   ctx.restore();
 }
