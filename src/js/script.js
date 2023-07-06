@@ -98,7 +98,7 @@ RadarChart.prototype.drawLabel = function (l, angle, ctx) {
   // Adjust the translation offset for "support," "combat," and "magic" attributes
   var translationOffset = 20 * Math.floor(this.max / 2);
   if (l === "Support" || l === "Combat" || l === "Magic") {
-    translationOffset -= 10; // Adjust the offset as needed
+    translationOffset -= -10; // Adjust the offset as needed
   }
 
   ctx.translate(translationOffset, 0);
