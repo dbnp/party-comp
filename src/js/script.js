@@ -94,6 +94,8 @@ RadarChart.prototype.drawLabel = function (l, angle, ctx) {
   // Adjust text position for attributes on the bottom of the graph
   if (angle > Math.PI) {
     ctx.translate(0, -this.fontSize); // Move the text up
+  } else {
+    ctx.translate(0, -this.fontSize); // Move the text down for the specific attributes
   }
 
   ctx.fillStyle = "rgba(255, 255, 255, 1.0)";
@@ -103,6 +105,7 @@ RadarChart.prototype.drawLabel = function (l, angle, ctx) {
 
   ctx.restore();
 };
+
 
 
 RadarChart.prototype.drawPolygon = function (ctx) {
