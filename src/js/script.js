@@ -163,6 +163,9 @@ function draw() {
   RC.draw(ctx);
   ctx.restore();
   requestAnimationFrame(draw);
+  
+  // Add event listener for the export button
+  document.querySelector("#exportButton").addEventListener("click", exportImage);
 }
 
 draw();

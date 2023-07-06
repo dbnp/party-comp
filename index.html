@@ -1,16 +1,52 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Radar Chart for Party Compositions</title>
   <link rel="stylesheet" href="./src/css/style.css">
-
 </head>
 <body>
-<!-- partial:index.partial.html -->
-<canvas id="main"></canvas>
-<!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.js'></script><script  src="./src/js/script.js"></script>
+  <canvas id="main"></canvas>
 
+  <button id="exportButton">Export Image</button>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.js'></script>
+  <script src="./src/js/script.js"></script>
+  <script>
+    var canvas = document.querySelector("#main");
+    var ctx = canvas.getContext("2d");
+
+    canvas.width = document.body.clientWidth;
+    canvas.height = document.body.clientHeight;
+
+    // The rest of your JavaScript code goes here...
+
+    // Add the exportImage function and event listener here...
+
+    function exportImage() {
+      // Create a temporary canvas element to hold the exported image
+      var exportCanvas = document.createElement("canvas");
+      exportCanvas.width = canvas.width;
+      exportCanvas.height = canvas.height;
+      var exportCtx = exportCanvas.getContext("2d");
+
+      // Draw the chart on the temporary canvas
+      RC.update();
+      RC.draw(exportCtx);
+
+      // Convert the temporary canvas content to a data URL
+      var dataURL = exportCanvas.toDataURL("image/png");
+
+      // Create a download link for the user to save the image
+      var link = document.createElement("a");
+      link.href = dataURL;
+      link.download = "radar_chart.png"; // Specify the desired filename
+      link.click();
+    }
+
+    document.querySelector("#exportButton").addEventListener("click", exportImage);
+
+    // The rest of your JavaScript code continues...
+  </script>
 </body>
 </html>
