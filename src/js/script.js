@@ -81,27 +81,25 @@ RadarChart.prototype.update = function () {
 RadarChart.prototype.drawLabel = function (l, angle, ctx) {
   ctx.save();
   ctx.translate(center.x, center.y);
-  
-  // Adjust rotation for specific attribute labels
+  ctx.rotate(angle);
+
+  // Adjust rotation and text orientation for specific attribute labels
   if (l === "Social" || l === "Versatility" || l === "Survivability") {
-    ctx.rotate(angle + Math.PI); // Rotate by angle + 180 degrees
-  } else {
-    ctx.rotate(angle); // Keep the original rotation for other attributes
+    ctx.rotate(Math.PI); // Flip upside down
   }
-  
+
   ctx.translate(20 * Math.floor(this.max / 2), 0);
-  
-  // Adjust the translation for specific attribute labels
-  if (l === "Social" || l === "Versatility" || l === "Survivability") {
-    ctx.translate(0, -this.fontSize); // Move "Social", "Versatility", and "Survivability" up
-  }
-  
   ctx.rotate(-Math.PI / 2); // Rotate back to the original orientation
   ctx.fillStyle = "rgba(255, 255, 255, 1.0)";
   ctx.font = this.fontSize + "px monospace";
-  
+
+  if (l !== "Sleuthing") {
+    // Set the text baseline to "top" for other attributes
+    ctx.textBaseline = "top";
+  }
+
   ctx.fillText(l, -Math.floor(l.length / 2) * (this.fontSize / 2), 0);
-  
+
   ctx.restore();
 };
 
