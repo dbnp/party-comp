@@ -4,11 +4,42 @@
   <meta charset="UTF-8">
   <title>Radar Chart for Party Compositions</title>
   <link rel="stylesheet" href="./src/css/style.css">
+  <style>
+    /* Add the modified CSS styles here */
+    body, html {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    #main {
+      background: #333;
+      width: 100%;
+      height: 100%;
+    }
+
+    #exportContainer {
+      background-color: #333;
+      padding: 10px;
+    }
+
+    #exportButton {
+      background-color: #ffffff;
+      color: #000000;
+      border: none;
+      padding: 5px 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
   <canvas id="main"></canvas>
 
-  <button id="exportButton">Export Image</button>
+  <div id="exportContainer">
+    <button id="exportButton">Export Image</button>
+  </div>
 
   <script src='https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.js'></script>
   <script src="./src/js/script.js"></script>

@@ -1,45 +1,26 @@
-body,html
-{
-  width:100%;
-  height:100%;
+body, html {
+  width: 100%;
+  height: 100%;
   margin: 0;
-  padding:0;
-}
-
-#main
-{
-  background:#333;
-  width:100%;
-  height:100%;
-}
-
-#text-block {
-  width: 250px;
-  padding: 20px;
-  background-color: #f2f2f2;
-  float: left;
-}
-
-#text-block h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-#attribute-list {
-  list-style: none;
   padding: 0;
-  margin: 0;
 }
 
-#attribute-list li {
-  margin-bottom: 20px;
+#main {
+  background: #333;
+  width: 100%;
+  height: 100%;
 }
 
-#attribute-list h3 {
-  font-size: 18px;
+#exportContainer {
+  background-color: #333; /* Use the same background color as #main */
+  padding: 10px;
 }
 
-#attribute-list p {
-  font-size: 14px;
-  margin-top: 5px;
+#exportButton {
+  background-color: #ffffff;
+  color: #000000;
+  border: none;
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
 }
